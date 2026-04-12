@@ -25,7 +25,7 @@ public class Main {
 
         while (true) {
 
-            System.out.println("\n===== MENU =====");
+            System.out.println("\n===== FACTORY OUTLET SYSTEM =====");
             System.out.println("1. View Product");
             System.out.println("2. Update Stock");
             System.out.println("3. Create Order");
@@ -42,24 +42,34 @@ public class Main {
                     break;
 
                 case 2:
-                    System.out.print("Enter quantity to add: ");
+                    System.out.print("Enter quantity: ");
                     int qty = sc.nextInt();
                     pController.updateStock(qty);
                     break;
 
                 case 3:
+
+                    if (product.getStock() <= 0) {
+                        System.out.println("Out of stock! Cannot create order.");
+                        break;
+                    }
+
                     System.out.print("Enter Order ID: ");
                     int id = sc.nextInt();
 
-                    Order newOrder = OrderFactory.createOrder(id);
-                    oController.setOrder(newOrder);
+                    System.out.print("Enter Order Type (normal/bulk/priority): ");
+                    String type = sc.next();
+
+                    Order order = OrderFactory.createOrder(type, id);
+                    oController.setOrder(order);
 
                     oController.createOrder();
                     break;
 
                 case 4:
-                    System.out.print("Enter new status: ");
-                    String status = sc.next();
+                    System.out.print("Enter status: ");
+                    sc.nextLine();
+                    String status = sc.nextLine();
 
                     oController.updateStatus(status);
                     break;
@@ -69,6 +79,7 @@ public class Main {
                     break;
 
                 case 6:
+                    sc.close();
                     System.exit(0);
             }
         }

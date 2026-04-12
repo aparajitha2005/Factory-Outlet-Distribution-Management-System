@@ -22,9 +22,14 @@ public class ProductController {
         );
     }
 
-    public void updateStock(int quantity) {
-        int newStock = product.getStock() + quantity;
-        product.setStock(newStock);
+    public void updateStock(int qty) {
+
+        if (qty <= 0) {
+            view.showMessage("Invalid quantity!");
+            return;
+        }
+
+        product.setStock(product.getStock() + qty);
         view.showMessage("Stock updated successfully!");
     }
 }
