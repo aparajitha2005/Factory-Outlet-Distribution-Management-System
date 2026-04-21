@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Management</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .navbar {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin: 20px 0;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+        .btn {
+            border-radius: 25px;
+            padding: 10px 30px;
+            transition: all 0.3s ease;
+        }
+        .btn:hover {
+            transform: scale(1.05);
+        }
+        .btn-info { background: linear-gradient(45deg, #ff9a9e, #fecfef); border: none; }
+        .btn-success { background: linear-gradient(45deg, #28a745, #20c997); border: none; }
+        .btn-secondary { background: linear-gradient(45deg, #6c757d, #495057); border: none; }
+        h1 {
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        .alert {
+            border-radius: 10px;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand text-white fw-bold" th:href="@{/}">
+                <i class="fas fa-arrow-left me-2"></i>Back to Home
+            </a>
+            <span class="navbar-text text-white fw-bold">
+                <i class="fas fa-box me-2"></i>Product Management
+            </span>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1 class="text-center mt-5">Product Management</h1>
+
+        <!-- Inventory Table -->
+        <div class="card">
+            <div class="card-header bg-info text-white">
+                <i class="fas fa-boxes me-2"></i>Product Inventory
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Price (₹)</th>
+                                <th>Stock</th>
+                                <th class="text-end">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="product : ${products}">
+                                <td th:text="${product.id}"></td>
+                                <td th:text="${product.name}"></td>
+                                <td th:text="${product.price}"></td>
+                                <td th:text="${product.stock}"></td>
+                                <td class="text-end">
+                                    <form th:action="@{/product/updateStock}" method="post" class="d-flex justify-content-end gap-2">
+                                        <input type="hidden" name="productId" th:value="${product.id}" />
+                                        <input type="number" class="form-control form-control-sm" name="quantity" placeholder="Qty" required min="1" style="width: 120px;" />
+                                        <button type="submit" class="btn btn-success btn-sm">
+                                            <i class="fas fa-plus"></i> Add
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

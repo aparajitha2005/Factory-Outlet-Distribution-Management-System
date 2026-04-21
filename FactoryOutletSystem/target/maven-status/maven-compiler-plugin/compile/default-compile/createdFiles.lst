@@ -1,0 +1,6 @@
+com/factoryoutlet/repository/OrderRepository.class
+com/factoryoutlet/FactoryOutletApplication.class
+com/factoryoutlet/model/Order.class
+com/factoryoutlet/model/OrderStatus.class
+com/factoryoutlet/service/OrderService.class
+com/factoryoutlet/controller/OrderController.class
